@@ -4,12 +4,12 @@ import { UserContext } from '../context/UserProvider.js'
 
 const initInputs = { username: "", password: "" }
 
-export default function Auth(){
+const Auth = () => {
   const [inputs, setInputs] = useState(initInputs)
   const [toggle, setToggle] = useState(false)
 
-  const { signup, login } = useContext(UserContext)
-
+  const { signup, login, errMsg } = useContext(UserContext)
+  
   function handleChange(e){
     const {name, value} = e.target
     setInputs(prevInputs => ({
@@ -43,6 +43,7 @@ export default function Auth(){
             inputs={inputs}
             changeToggle={changeToggle}
             btnText="Sign up"
+            errMsg={ errMsg }
           />
           <p onClick={changeToggle}>Already a member?</p>
         </>
@@ -54,6 +55,7 @@ export default function Auth(){
             inputs={inputs}
             changeToggle={changeToggle}
             btnText="Login"
+            errMsg={ errMsg }
           />
           <p onClick={changeToggle}>Not a member?</p>
         </>
@@ -61,3 +63,5 @@ export default function Auth(){
     </div>
   )
 }
+
+export default Auth;

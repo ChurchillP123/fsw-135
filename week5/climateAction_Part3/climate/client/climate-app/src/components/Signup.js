@@ -10,7 +10,7 @@ export default function Signup(){
   
     let navigate = useNavigate();
 
-  const { signup } = useContext(UserContext)
+  const { signup, resetAuthErr } = useContext(UserContext)
 
   function handleChange(e){
     const {name, value} = e.target
@@ -28,6 +28,7 @@ export default function Signup(){
   }
 
   function navigationLogin(){
+    resetAuthErr()
     navigate("/login");
   }
 

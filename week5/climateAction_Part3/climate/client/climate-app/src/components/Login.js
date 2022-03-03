@@ -9,8 +9,8 @@ export default function Login(){
   const [inputs, setInputs] = useState(initInputs)
   let navigate = useNavigate();
 
-  const { login } = useContext(UserContext)
-
+  const  {login}  = useContext(UserContext)
+console.log(login)
   function handleChange(e){
     const {name, value} = e.target
     setInputs(prevInputs => ({
@@ -27,6 +27,7 @@ export default function Login(){
  
 
   function navigationSignup(){
+    //resetAuthErr()
     navigate("/signup");
   }
  

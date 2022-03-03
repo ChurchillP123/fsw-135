@@ -1,16 +1,19 @@
-import React from 'react'
+import {React, useContext} from 'react'
+import { UserContext } from '../context/UserProvider.js'
 
-export default function AuthForm(props){
+const AuthForm = (props) => {
   const {
     handleChange, 
     handleSubmit, 
-    btnText, 
+    btnText,
     inputs: {
       username, 
       password
     } 
   } = props
-  
+
+  const context = useContext(UserContext);
+
   return (
     <form onSubmit={handleSubmit}>
       <input 
@@ -26,6 +29,9 @@ export default function AuthForm(props){
         onChange={handleChange} 
         placeholder="Password"/>
       <button>{ btnText }</button>
+      <p style={{backgroundColor: "#c00000", color: "#ffffff", textAlign: "center"}}>{ context.userState.errMsg } </p>
     </form>
   )
 }
+
+export default AuthForm;
