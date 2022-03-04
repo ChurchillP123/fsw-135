@@ -16,10 +16,25 @@ export default function UserProvider(props){
   const initState = { 
     user: JSON.parse(localStorage.getItem("user")) || {}, 
     token: localStorage.getItem("token") || "",
-    issues: [] 
+    issues: [], 
+    errMsg: ''
   }
 
   const [userState, setUserState] = useState(initState)
+  
+  function handleAuthErr(errMsg){
+    setUserState(prevState => ({
+      ...prevState,
+      errMsg
+    }))
+  }
+
+  function resetAuthErr(){
+    setUserState(prevUserState => ({
+      ...prevUserState, 
+      errMsg: ''
+    }))
+  }
 
   function signup(credentials, navigation){
    
@@ -34,7 +49,7 @@ export default function UserProvider(props){
         }))
       })
       .then(navigation)
-      .catch(err => console.log(err.response.data.errMsg))
+      .catch(err => handleAuthErr(err.response.data.errMsg))
       
       
   }
@@ -52,7 +67,7 @@ export default function UserProvider(props){
           token
         }))
       })
-      .catch(err => console.log(err.response.data.errMsg))
+      .catch(err => handleAuthErr(err.response.data.errMsg))
   }
 
   function logout(){
@@ -94,7 +109,8 @@ export default function UserProvider(props){
         signup,
         login,
         logout,
-        addIssue
+        addIssue,
+        resetAuthErr
       }}>
       { props.children }
     </UserContext.Provider>

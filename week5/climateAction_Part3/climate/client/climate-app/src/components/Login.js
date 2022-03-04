@@ -9,7 +9,7 @@ export default function Login(){
   const [inputs, setInputs] = useState(initInputs)
   let navigate = useNavigate();
 
-  const { login } = useContext(UserContext)
+  const { login, errMsg, resetAuthErr } = useContext(UserContext)
 
   function handleChange(e){
     const {name, value} = e.target
@@ -28,6 +28,7 @@ export default function Login(){
 
   function navigationSignup(){
     navigate("/signup");
+    resetAuthErr()
   }
  
 
@@ -41,7 +42,9 @@ export default function Login(){
             inputs={inputs}
             btnText="Login"
           />
+          <p style={{backgroundColor: "#c00000", color: "#ffffff", textAlign: "center"}}>{ errMsg } </p>
           <p onClick={navigationSignup}>Not a member?</p>
+          
         </>
     </div>
   )
