@@ -1,11 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../context/UserProvider.js'
 import Navbar from '../components/Navbar';
 import IssueForm from '../components/IssueForm';
 import IssueList from '../components/IssueList';
 
+
+
 export default function Profile(){
-  const { user: {username}, addIssue, issues } = useContext(UserContext)
+  const { user: {username}, addIssue, issues, getUserIssues } = useContext(UserContext)
+  
+  const [getIssues, setIssues] = useState(issues);
+
+  useEffect(() => {
+    getUserIssues()
+  },[getIssues]);
 
   return (
     <div className="profile">

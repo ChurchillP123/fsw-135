@@ -36,7 +36,7 @@ export default function Signup(){
 
   return (
     <div className="auth-container">
-      <h1>Todo App</h1>
+      <h1>Climate App</h1>
         <>
           <AuthForm 
             handleChange={handleChange}
