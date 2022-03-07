@@ -10,7 +10,7 @@ export default function Signup(){
   
     let navigate = useNavigate();
 
-  const { signup } = useContext(UserContext)
+  const { signup, errMsg, resetAuthErr } = useContext(UserContext)
 
   function handleChange(e){
     const {name, value} = e.target
@@ -29,13 +29,14 @@ export default function Signup(){
 
   function navigationLogin(){
     navigate("/login");
+    resetAuthErr()
   }
 
   
 
   return (
     <div className="auth-container">
-      <h1>Todo App</h1>
+      <h1>Climate App</h1>
         <>
           <AuthForm 
             handleChange={handleChange}
@@ -43,6 +44,7 @@ export default function Signup(){
             inputs={inputs}
             btnText="Sign up"
           />
+          <p style={{backgroundColor: "#c00000", color: "#ffffff", textAlign: "center"}}>{ errMsg } </p>
           <p onClick={navigationLogin}>Already a member?</p>
         </>
     </div>
