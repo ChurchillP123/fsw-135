@@ -7,7 +7,8 @@ const issueSchema = new Schema({
         required: true
     },
     description: {
-        type: String
+        type: String,
+        required: true
     },
     imgUrl: {
         type: String,
@@ -15,7 +16,7 @@ const issueSchema = new Schema({
     },
     upvote: {
         type: Boolean,
-        required: false
+        default: false,
     },
     user: {
         type: Schema.Types.ObjectId,

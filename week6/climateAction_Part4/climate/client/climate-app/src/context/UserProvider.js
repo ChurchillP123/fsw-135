@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 
+
 export const UserContext = React.createContext()
 
 const userAxios = axios.create()
@@ -16,6 +17,7 @@ export default function UserProvider(props){
   const initState = { 
     user: JSON.parse(localStorage.getItem("user")) || {}, 
     token: localStorage.getItem("token") || "",
+    allIssues: [],
     issues: [], 
     errMsg: ''
   }
@@ -98,16 +100,21 @@ export default function UserProvider(props){
           ...prevState,
           issues: [res.data, ...prevState.issues],
         }))
-        
       })
-      
       .catch(err => console.log(err.response.data.errMsg))
   }
 
-  async function getAllIssues(){
-    return await userAxios.get("/api/issue").then(res => res.data);
+  const getAllIssues = () =>  {
+    userAxios.get("/api/issue") 
+      .then(res => {
+        setUserState(prevState => ({
+          ...prevState, 
+          allIssues: res.data
+        }))
+      })   
+      .catch(err => console.log(err.response.data.errMsg))
   }
-  
+
 
   return (
     <UserContext.Provider

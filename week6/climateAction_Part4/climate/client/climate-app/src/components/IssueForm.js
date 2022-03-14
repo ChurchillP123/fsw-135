@@ -22,7 +22,6 @@ export default function IssueForm(props){
     e.preventDefault()
     
     const renderIssues = async() => {
-      console.log('hello Reese inside renderissues')
       await addIssue(inputs);
       await setInputs({inputs, ...initInputs})
     }

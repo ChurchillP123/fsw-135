@@ -1,38 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../context/UserProvider.js'
 import IssueList from '../components/IssueList'
+import Navbar from '../components/Navbar'
 
 export default function Public(){
 
-  const { getAllIssues } = useContext(UserContext)
-  const [issues, setIssues] = useState([]);
-
+  const { getAllIssues, allIssues } = useContext(UserContext)
+  const [getIssues, setIssues] = useState(allIssues);
   
-
-
-
-  // const renderIssues = async() => {
-  //   Promise.resolve()
-  //     .then(async () => )
-  //   const issueList = await getAllIssues();
-  //   console.log(issueList)
-  //   setIssues(issueList);
-  // }
-
-  //renderIssues()
-
-  
-  
-  //  useEffect(() => {
-    
-    
-  //  },[issues, getAllIssues]);
-
+   useEffect(() => {
+    getAllIssues()
+   },[]);
   
 
   return (
     <div className="public">
-       <IssueList issues={issues}/> 
+        <Navbar />
+        <IssueList issues={allIssues}/> 
     </div>
   )
 }

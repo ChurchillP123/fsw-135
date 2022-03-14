@@ -52,18 +52,36 @@ issueRouter.delete("/:issueId", (req, res, next) => {
 
 //update issue
 issueRouter.put("/:issueId", (req, res, next) => {
-    Issue.findOneAndUpdate(
-        { _id: req.params.issueId, user: req.user._id }, 
-        req.body, 
-        { new: true },
-        (err, updatedIssue) => {
+    Issue.findOne({ _id: req.params.issueId, user: req.user._id}, function(err, issue) {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        
+        issue.upvote = !issue.upvote;
+        issue.save(function(err, updatedIssue) {
             if(err){
                 res.status(500)
                 return next(err)
             }
-            return res.status(201).send(updatedTodo)
-        }
-    )
+            console.log(updatedIssue)
+            return res.status(201).send(updatedIssue.upvote)
+        })
+    })
 })
+
+issueRouter.get("/:issueId", (req, res, next) => {
+    Issue.find({ _id: req.params.issueId, user: req.user._id}, function(err, issue) {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(issue.upvote)
+    })
+})
+
+
+
+
 
 module.exports = issueRouter;
